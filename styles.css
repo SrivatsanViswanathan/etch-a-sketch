@@ -1,0 +1,25 @@
+/* Default */
+
+body {
+ margin: 0;
+ padding: 0;
+ display: flex;
+ flex-direction: column;
+ font-family: 'Times New Roman', Times, serif;
+ max-height: 150vh;
+ height: 100vh;
+}
+
+.header {
+ display: flex;
+ flex-direction: column;
+ box-shadow: 10px 0px 50px gray;
+ background-color: navy;
+}
+
+/* Header */
+
+.header-container {
+ text-align: center;
+ color: white;
+}
