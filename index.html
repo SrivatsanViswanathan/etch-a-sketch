@@ -5,6 +5,7 @@
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+ <link rel="icon" type="image/x-icon" href="./favicon.ico">
  <link rel="stylesheet" href="./styles.css">
 
  <script defer src="./script.js"></script>
@@ -12,8 +13,43 @@
  <title>Etch-A-Sketch</title>
 </head>
 <body>
- <header class="header" id="header"></header>
- <article class="body" id="body"></article>
- <footer class="footer" id="footer"></footer>
+ <header class="header" id="header">
+  <div class="header-container" id="header-container">
+   <h1>Welcome to Etch a Sketch</h1>
+  </div>
+ </header>
+
+ <article class="body" id="body">
+  <div class="body-container" id="body-container">
+   <div class="toggle" id="toggle">
+    <h2>Menu</h2>
+    <button class="grid-submit" id="grid-submit">Grid Size</button>
+    <button class="default" id="default">Default</button>
+    <button class="shaded" id="shaded">Shaded</button>
+    <button class="random" id="random">Random</button>
+    <button class="grid-erase" id="grid-erase">Erase</button>
+   </div>
+   <div class="grid" id="grid"></div>
+  </div>
+ </article>
+
+ <div class="modal" id="modal">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h2>Update Grid Size</h2>
+    <span class="close" id="close">&times;</span>
+   </div>
+   <div class="modal-body">
+    <form class="update-grid" id="update-grid" onsubmit="gridUpdate(); return false;">
+     <input type="text" placeholder="Grid Size" class="grid-number" id="grid-number"><br>
+     <input type="submit" value="Submit" class="submit" id="submit">
+    </form>
+   </div>
+  </div>
+ </div>
+
+ <footer class="footer" id="footer">
+  <p>&copy Srivatsan Viswanathan</p>
+ </footer>
 </body>
 </html>
