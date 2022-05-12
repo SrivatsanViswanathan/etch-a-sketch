@@ -32,6 +32,7 @@ function gridDraw() {
   const defaultColour = document.getElementById('default');
   const shadedColour = document.getElementById('shaded');
   const randomColour = document.getElementById('random');
+  const eraser = document.getElementById('eraser');
   const gridSquare = document.querySelectorAll('.grid-squares');
 
   gridSquare.forEach(element => {
@@ -72,6 +73,14 @@ function gridDraw() {
         var two = Math.ceil(Math.random() * 255);
         var three = Math.floor(Math.random() * 255);
         e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
+      });
+    });
+  });
+
+  eraser.addEventListener('click', function (e) {
+    gridSquare.forEach(element => {
+      element.addEventListener('mouseover', function (e) {
+        e.target.style.backgroundColor = 'white';
       });
     });
   });
