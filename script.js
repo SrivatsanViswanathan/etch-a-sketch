@@ -67,7 +67,6 @@ function gridDraw() {
                     shadedOne = shadedOne - 25.5;
                     shadedTwo = shadedTwo - 25.5;
                     shadedThree = shadedThree - 25.5;
-                    console.log('hello');
                 }
                 e.target.style.backgroundColor = 'rgb(' + shadedOne + ',' + shadedTwo + ',' + shadedThree + ')';
             });
