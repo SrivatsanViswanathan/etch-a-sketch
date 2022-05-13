@@ -151,6 +151,10 @@ body {
     text-align: center;
 }
 
+.modal input[type=text] {
+    text-align: center;
+}
+
 /* Footer */
 
 .footer {
