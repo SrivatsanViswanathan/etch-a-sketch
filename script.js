@@ -50,9 +50,8 @@ function gridDraw() {
         });
     });
 
-    toggle.forEach(element => {
-        if (element.classList.contains('active')) {
-            bool = true;
+    if (bool === true) {
+        toggle.forEach(element => {
             if (element === gridSubmit) {
                 gridSize();
             }
@@ -71,8 +70,8 @@ function gridDraw() {
             else if (element === gridErase) {
                 eraseGrid();
             }
-        }
-    });
+        });
+    }
 
     gridSubmit.addEventListener('click', gridSize);
     defaultColour.addEventListener('click', original);
@@ -89,7 +88,9 @@ function gridUpdate() {
         if (gridNum >= 1 && gridNum <= 100) {
             squares = gridNum;
             modal.style.display = 'none';
+            bool = true;
             gridCreate(squares * squares);
+            bool = false;
         }
     });
 }
@@ -115,23 +116,7 @@ function gridSize() {
 
 function original() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    const toggle = document.querySelectorAll('.active');
-    if (!defaultColour.classList.contains('active')) {
-        defaultColour.classList.add('active');
-    }
-    else {
-        if (bool === false) {
-            defaultColour.classList.remove('active');
-        }
-    }
-    toggle.forEach(element => {
-        if (bool === false) {
-            element.classList.remove('active');
-        }
-    });
-    if (bool === true) {
-        bool = false;
-    }
+    selected('default', bool);
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
             e.target.style.backgroundColor = 'black';
@@ -141,25 +126,7 @@ function original() {
 
 function shaded() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    const toggle = document.querySelectorAll('.active');
-    if (!shadedColour.classList.contains('active')) {
-        shadedColour.classList.add('active');
-    }
-    else {
-        if (bool === false) {
-            shadedColour.classList.remove('active');
-            gridDraw();
-            return 1;
-        }
-    }
-    toggle.forEach(element => {
-        if (bool === false) {
-            element.classList.remove('active');
-        }
-    });
-    if (bool === true) {
-        bool = false;
-    }
+    selected('shaded', bool);
     gridSquare.forEach(element => {
         var shadedOne = 255;
         var shadedTwo = 255;
@@ -177,25 +144,7 @@ function shaded() {
 
 function random() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    const toggle = document.querySelectorAll('.active');
-    if (!randomColour.classList.contains('active')) {
-        randomColour.classList.add('active');
-    }
-    else {
-        if (bool === false) {
-            randomColour.classList.remove('active');
-            gridDraw();
-            return 1;
-        }
-    }
-    toggle.forEach(element => {
-        if (bool === false) {
-            element.classList.remove('active');
-        }
-    });
-    if (bool === true) {
-        bool = false;
-    }
+    selected('random', bool);
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
             var one = Math.floor(Math.random() * (255));
@@ -208,25 +157,7 @@ function random() {
 
 function erase() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    const toggle = document.querySelectorAll('.active');
-    if (!eraser.classList.contains('active')) {
-        eraser.classList.add('active');
-    }
-    else {
-        if (bool === false) {
-            eraser.classList.remove('active');
-            gridDraw();
-            return 1;
-        }
-    }
-    toggle.forEach(element => {
-        if (bool === false) {
-            element.classList.remove('active');
-        }
-    });
-    if (bool === true) {
-        bool = false;
-    }
+    selected('eraser', bool);
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
             e.target.style.backgroundColor = 'white';
@@ -238,5 +169,25 @@ function eraseGrid() {
     const gridSquare = document.querySelectorAll('.grid-squares');
     gridSquare.forEach(element => {
         element.style.backgroundColor = 'white';
+    });
+}
+
+function selected(id, bool) {
+    const toggle = document.querySelectorAll('.active');
+    const value = document.getElementById(id);
+    if (!value.classList.contains('active')) {
+        value.classList.add('active');
+    }
+    else {
+        if (bool === false) {
+            value.classList.remove('active');
+            gridDraw();
+            return 1;
+        }
+    }
+    toggle.forEach(element => {
+        if (bool === false) {
+            element.classList.remove('active');
+        }
     });
 }
