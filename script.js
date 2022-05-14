@@ -41,7 +41,6 @@ function gridCreate(squares) {
 
 // Draw on grid based on user's menu button selection
 function gridDraw() {
-
     const gridSquare = document.querySelectorAll('.grid-squares');
     const toggle = document.querySelectorAll('.active');
     
@@ -115,7 +114,6 @@ function gridSize() {
 }
 
 function original() {
-    console.log(bool);
     const gridSquare = document.querySelectorAll('.grid-squares');
     const toggle = document.querySelectorAll('.active');
     if (!defaultColour.classList.contains('active')) {
@@ -142,7 +140,6 @@ function original() {
 }
 
 function shaded() {
-    console.log(bool);
     const gridSquare = document.querySelectorAll('.grid-squares');
     const toggle = document.querySelectorAll('.active');
     if (!shadedColour.classList.contains('active')) {
@@ -181,7 +178,6 @@ function shaded() {
 function random() {
     const gridSquare = document.querySelectorAll('.grid-squares');
     const toggle = document.querySelectorAll('.active');
-    console.log('s');
     if (!randomColour.classList.contains('active')) {
         randomColour.classList.add('active');
     }
@@ -240,7 +236,6 @@ function erase() {
 
 function eraseGrid() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    const toggle = document.querySelectorAll('.active');
     gridSquare.forEach(element => {
         element.style.backgroundColor = 'white';
     });
