@@ -1,6 +1,6 @@
 //Global variables
 var squares = 8 * 8;
-
+var bool = false;
 const grid = document.getElementById('grid');
 const gridSubmit = document.getElementById('grid-submit');
 const defaultColour = document.getElementById('default');
@@ -41,65 +41,123 @@ function gridCreate(squares) {
 
 // Draw on grid based on user's menu button selection
 function gridDraw() {
-    const gridSquare = document.querySelectorAll('.grid-squares');
 
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
             e.target.style.backgroundColor = 'black';
         });
     });
 
-    defaultColour.addEventListener('click', function (e) {
-        gridSquare.forEach(element => {
-            element.addEventListener('mouseover', function (e) {
-                e.target.style.backgroundColor = 'black';
-            });
-        });
+    toggle.forEach(element => {
+        if (element.classList.contains('active')) {
+            bool = true;
+            if (element === gridSubmit) {
+                gridSize();
+            }
+            else if (element === defaultColour) {
+                original();
+            }
+            else if (element === shadedColour) {
+                shaded();
+            }
+            else if (element === randomColour) {
+                random();
+            }
+            else if (element === eraser) {
+                erase();
+            }
+            else if (element === gridErase) {
+                eraseGrid();
+            }
+        }
     });
 
-    shadedColour.addEventListener('click', function (e) {
+    gridSubmit.addEventListener('click', gridSize);
+    defaultColour.addEventListener('click', original);
+    shadedColour.addEventListener('click', shaded);
+    randomColour.addEventListener('click', random);
+    eraser.addEventListener('click', erase);
+    gridErase.addEventListener('click', eraseGrid);
+    
+
+    function draw(button) {
+        clicked(button);
+        if (button === 'gridSubmit') {
+            modalPopUp();
+        }
         gridSquare.forEach(element => {
-            var shadedOne = 255;
-            var shadedTwo = 255;
-            var shadedThree = 255;
-            element.addEventListener('mouseover', function (e) {
-                if (shadedOne >= 0 && shadedTwo >= 0 && shadedThree >= 0) {
-                    shadedOne = shadedOne - 25.5;
-                    shadedTwo = shadedTwo - 25.5;
-                    shadedThree = shadedThree - 25.5;
+            if (button === 'gridErase') {
+                element.style.backgroundColor = '';
+            }
+            else {
+                element.addEventListener('mouseover', function (e) {
+                    if (button === 'default') {
+                        e.target.style.backgroundColor = 'black';
+                    }
+                    else if (button === 'shaded') {
+                        if (shadedOne >= 0 && shadedTwo >= 0 && shadedThree >= 0) {
+                            shadedOne = shadedOne - 25.5;
+                            shadedTwo = shadedTwo - 25.5;
+                            shadedThree = shadedThree - 25.5;
+                        }
+                        e.target.style.backgroundColor = 'rgb(' + shadedOne + ',' + shadedTwo + ',' + shadedThree + ')';
+                    }
+                    else if (button === 'random') {
+                        var one = Math.floor(Math.random() * (255));
+                        var two = Math.ceil(Math.random() * 255);
+                        var three = Math.floor(Math.random() * 255);
+                        e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
+                    }
+                    else if (button === 'eraser') {
+                        e.target.style.backgroundColor = 'white';
+                    }
+                });
+            }
+        });
+    }
+    function clicked(button) {
+        if (button != 'gridSubmit' && button != 'gridErase') {
+            const toggle = document.querySelectorAll('.active');
+            toggle.forEach(element => {
+                element.classList.remove('active');
+            });
+            
+            if (button === 'default') {
+                if (!defaultColour.classList.contains('active')) {
+                    defaultColour.classList.add('active');
                 }
-                e.target.style.backgroundColor = 'rgb(' + shadedOne + ',' + shadedTwo + ',' + shadedThree + ')';
-            });
-        });
-    });
-
-    randomColour.addEventListener('click', function (e) {
-        gridSquare.forEach(element => {
-            element.addEventListener('mouseover', function (e) {
-                var one = Math.floor(Math.random() * (255));
-                var two = Math.ceil(Math.random() * 255);
-                var three = Math.floor(Math.random() * 255);
-                e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
-            });
-        });
-    });
-
-    eraser.addEventListener('click', function (e) {
-        gridSquare.forEach(element => {
-            element.addEventListener('mouseover', function (e) {
-                e.target.style.backgroundColor = 'white';
-            });
-        });
-    });
-
-    gridSubmit.addEventListener('click', modalPopUp);
-    gridErase.addEventListener('click', update)
-
-    function update() {
-        gridSquare.forEach(element => {
-            element.classList.remove('active');
-            element.style.backgroundColor = '';
-        });
+                else {
+                    defaultColour.classList.remove('active');
+                }
+            }
+            else if (button === 'shaded') {
+                if (!shadedColour.classList.contains('active')) {
+                    shadedColour.classList.add('active');
+                }
+                else {
+                    shadedColour.classList.remove('active');
+                }
+            }
+            else if (button === 'random') {
+                if (!randomColour.classList.contains('active')) {
+                    randomColour.classList.add('active');
+                }
+                else {
+                    randomColour.classList.remove('active');
+                }
+            }
+            else if (button === 'eraser') {
+                if (!eraser.classList.contains('active')) {
+                    eraser.classList.add('active');
+                }
+                else {
+                    eraser.classList.remove('active');
+                }
+            }
+        }  
     }
 }
 
@@ -115,7 +173,6 @@ function gridUpdate() {
     });
 }
 
-
 // Modal pop up for updating grid size
 function modalPopUp() {
     modal.style.display = 'block';
@@ -128,4 +185,139 @@ function modalPopUp() {
             modal.style.display = "none";
         }
     }
+}
+function gridSize() {
+    modalPopUp();
+}
+
+function original() {
+    console.log(bool);
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    if (!defaultColour.classList.contains('active')) {
+        defaultColour.classList.add('active');
+    }
+    else {
+        if (bool === false) {
+            defaultColour.classList.remove('active');
+        }
+    }
+    toggle.forEach(element => {
+        if (bool === false) {
+            element.classList.remove('active');
+        }
+    });
+    if (bool === true) {
+        bool = false;
+    }
+    gridSquare.forEach(element => {
+        element.addEventListener('mouseover', function (e) {
+            e.target.style.backgroundColor = 'black';
+        });
+    });
+}
+
+function shaded() {
+    console.log(bool);
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    if (!shadedColour.classList.contains('active')) {
+        shadedColour.classList.add('active');
+    }
+    else {
+        if (bool === false) {
+            shadedColour.classList.remove('active');
+            gridDraw();
+            return 1;
+        }
+    }
+    toggle.forEach(element => {
+        if (bool === false) {
+            element.classList.remove('active');
+        }
+    });
+    if (bool === true) {
+        bool = false;
+    }
+    gridSquare.forEach(element => {
+        var shadedOne = 255;
+        var shadedTwo = 255;
+        var shadedThree = 255;
+        element.addEventListener('mouseover', function (e) {
+            if (shadedOne >= 0 && shadedTwo >= 0 && shadedThree >= 0) {
+                shadedOne = shadedOne - 25.5;
+                shadedTwo = shadedTwo - 25.5;
+                shadedThree = shadedThree - 25.5;
+            }
+            e.target.style.backgroundColor = 'rgb(' + shadedOne + ',' + shadedTwo + ',' + shadedThree + ')';
+        });
+    });
+}
+
+function random() {
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    console.log('s');
+    if (!randomColour.classList.contains('active')) {
+        randomColour.classList.add('active');
+    }
+    else {
+        if (bool === false) {
+            randomColour.classList.remove('active');
+            gridDraw();
+            return 1;
+        }
+    }
+    toggle.forEach(element => {
+        if (bool === false) {
+            element.classList.remove('active');
+        }
+    });
+    if (bool === true) {
+        bool = false;
+    }
+    gridSquare.forEach(element => {
+        element.addEventListener('mouseover', function (e) {
+            var one = Math.floor(Math.random() * (255));
+            var two = Math.ceil(Math.random() * 255);
+            var three = Math.floor(Math.random() * 255);
+            e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
+        });
+    });
+}
+
+function erase() {
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    if (!eraser.classList.contains('active')) {
+        eraser.classList.add('active');
+    }
+    else {
+        if (bool === false) {
+            eraser.classList.remove('active');
+            gridDraw();
+            return 1;
+        }
+    }
+    toggle.forEach(element => {
+        if (bool === false) {
+            element.classList.remove('active');
+        }
+    });
+    if (bool === true) {
+        bool = false;
+    }
+    gridSquare.forEach(element => {
+        element.addEventListener('mouseover', function (e) {
+            e.target.style.backgroundColor = 'white';
+        });
+    });
+}
+
+function eraseGrid() {
+    const gridSquare = document.querySelectorAll('.grid-squares');
+    const toggle = document.querySelectorAll('.active');
+    gridSquare.forEach(element => {
+        element.style.backgroundColor = 'white';
+    });
 }

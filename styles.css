@@ -73,7 +73,7 @@ body {
 }
 
 .toggle button:hover {
-    background-color: #888;
+    background-color: blueviolet;
 }
 
 .grid {
@@ -87,6 +87,18 @@ body {
 .grid-squares {
     background-color: white;
     border: 1px solid black;
+}
+
+.toggle button {
+    transition: width 0.5s, height 0.5s, transform 0.5s;
+}
+
+.toggle .active {
+    background-color: blueviolet;
+    transform: scale(1.2);
+    transition-timing-function: linear;
+    color: black;
+    font-weight: bold;
 }
 
 /* Modal */
