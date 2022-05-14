@@ -81,84 +81,6 @@ function gridDraw() {
     randomColour.addEventListener('click', random);
     eraser.addEventListener('click', erase);
     gridErase.addEventListener('click', eraseGrid);
-    
-
-    function draw(button) {
-        clicked(button);
-        if (button === 'gridSubmit') {
-            modalPopUp();
-        }
-        gridSquare.forEach(element => {
-            if (button === 'gridErase') {
-                element.style.backgroundColor = '';
-            }
-            else {
-                element.addEventListener('mouseover', function (e) {
-                    if (button === 'default') {
-                        e.target.style.backgroundColor = 'black';
-                    }
-                    else if (button === 'shaded') {
-                        if (shadedOne >= 0 && shadedTwo >= 0 && shadedThree >= 0) {
-                            shadedOne = shadedOne - 25.5;
-                            shadedTwo = shadedTwo - 25.5;
-                            shadedThree = shadedThree - 25.5;
-                        }
-                        e.target.style.backgroundColor = 'rgb(' + shadedOne + ',' + shadedTwo + ',' + shadedThree + ')';
-                    }
-                    else if (button === 'random') {
-                        var one = Math.floor(Math.random() * (255));
-                        var two = Math.ceil(Math.random() * 255);
-                        var three = Math.floor(Math.random() * 255);
-                        e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
-                    }
-                    else if (button === 'eraser') {
-                        e.target.style.backgroundColor = 'white';
-                    }
-                });
-            }
-        });
-    }
-    function clicked(button) {
-        if (button != 'gridSubmit' && button != 'gridErase') {
-            const toggle = document.querySelectorAll('.active');
-            toggle.forEach(element => {
-                element.classList.remove('active');
-            });
-            
-            if (button === 'default') {
-                if (!defaultColour.classList.contains('active')) {
-                    defaultColour.classList.add('active');
-                }
-                else {
-                    defaultColour.classList.remove('active');
-                }
-            }
-            else if (button === 'shaded') {
-                if (!shadedColour.classList.contains('active')) {
-                    shadedColour.classList.add('active');
-                }
-                else {
-                    shadedColour.classList.remove('active');
-                }
-            }
-            else if (button === 'random') {
-                if (!randomColour.classList.contains('active')) {
-                    randomColour.classList.add('active');
-                }
-                else {
-                    randomColour.classList.remove('active');
-                }
-            }
-            else if (button === 'eraser') {
-                if (!eraser.classList.contains('active')) {
-                    eraser.classList.add('active');
-                }
-                else {
-                    eraser.classList.remove('active');
-                }
-            }
-        }  
-    }
 }
 
 // Update grid based on user's grid size specifications
@@ -186,6 +108,8 @@ function modalPopUp() {
         }
     }
 }
+
+// Update grid based on event listener from gridDraw()
 function gridSize() {
     modalPopUp();
 }
