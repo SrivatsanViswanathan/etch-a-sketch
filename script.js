@@ -93,10 +93,6 @@ function gridUpdate() {
             gridCreate(squares * squares);
             bool = false;
             setTimeout(myTimer, 1550);
-            function myTimer() {
-                modalContent.classList.remove('after');
-                modal.style.display = 'none';
-            }
         }
     });
 }
@@ -105,12 +101,14 @@ function gridUpdate() {
 function modalPopUp() {
     modal.style.display = 'block';
     close.addEventListener('click', () => {
-        modal.style.display = 'none';
+        modalContent.classList.add('after');
+        setTimeout(myTimer, 1550);
     });
 
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = 'none';
+            modalContent.classList.add('after');
+            setTimeout(myTimer, 1550);
         }
     }
 }
@@ -196,4 +194,9 @@ function selected(id, bool) {
             element.classList.remove('active');
         }
     });
+}
+
+function myTimer() {
+    modalContent.classList.remove('after');
+    modal.style.display = 'none';
 }
