@@ -1,6 +1,6 @@
 //Global variables
-var squares = 8 * 8;
-var bool = false;
+let squares = 8 * 8;
+let bool = false;
 const grid = document.getElementById('grid');
 const gridSubmit = document.getElementById('grid-submit');
 const defaultColour = document.getElementById('default');
