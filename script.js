@@ -10,6 +10,7 @@ const eraser = document.getElementById('eraser');
 const gridErase = document.getElementById('grid-erase');
 
 const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modal-content');
 const submit = document.getElementById('submit');
 const close = document.getElementById('close');
 
@@ -87,10 +88,15 @@ function gridUpdate() {
         const gridNum = document.getElementById('grid-number').value;
         if (gridNum >= 1 && gridNum <= 100) {
             squares = gridNum;
-            modal.style.display = 'none';
+            modalContent.classList.add('after');
             bool = true;
             gridCreate(squares * squares);
             bool = false;
+            setTimeout(myTimer, 1550);
+            function myTimer() {
+                modalContent.classList.remove('after');
+                modal.style.display = 'none';
+            }
         }
     });
 }
@@ -104,7 +110,7 @@ function modalPopUp() {
 
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            modal.style.display = 'none';
         }
     }
 }
