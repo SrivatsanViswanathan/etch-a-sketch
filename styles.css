@@ -124,7 +124,6 @@ body {
     padding: 8px;
     border: 1px solid #888;
     max-width: 400px;
-    margin-top: -10%;
     height: auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     animation-name: moveDown;
@@ -141,21 +140,21 @@ body {
 
 @keyframes moveDown {
     0% {
-        top: 0%;
+        top: -20%;
     }
 
     100% {
-        top: 60%;
+        top: 40%;
     }
 }
 
 @keyframes moveUp {
     0% {
-        top: 60%;
+        top: 40%;
     }
 
     100% {
-        top: 0%;
+        top: -20%;
     }
 }
 

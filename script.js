@@ -22,10 +22,15 @@ gridUpdate();
 function gridCreate(squares) {
     grid.textContent = '';
 
-    var height = Math.floor(grid.offsetHeight);
-    var width = Math.floor(grid.offsetWidth);
-    var borderLength = 2;
-
+    var height = grid.offsetHeight;
+    var width = grid.offsetWidth;
+    borderLength = 2;
+    // Detect Chrome
+    let userAgentString = navigator.userAgent;
+    let firefox = userAgentString.indexOf("Firefox") > -1;
+    if (firefox) {
+        borderLength = 1.7;
+    }
     var gridSize = height * width;
     var squareSize = Math.sqrt(gridSize / squares) - borderLength;
 
