@@ -29,7 +29,7 @@ function gridCreate(squares) {
     let userAgentString = navigator.userAgent;
     let firefox = userAgentString.indexOf("Firefox") > -1;
     if (firefox) {
-        borderLength = 1.7;
+        borderLength = 1.65;
     }
     var gridSize = height * width;
     var squareSize = Math.sqrt(gridSize / squares) - borderLength;
