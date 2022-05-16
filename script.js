@@ -22,8 +22,8 @@ gridUpdate();
 function gridCreate(squares) {
     grid.textContent = '';
 
-    var height = grid.offsetHeight;
-    var width = grid.offsetWidth;
+    let height = grid.offsetHeight;
+    let width = grid.offsetWidth;
     borderLength = 2;
     // Detect Chrome
     let userAgentString = navigator.userAgent;
@@ -31,10 +31,10 @@ function gridCreate(squares) {
     if (firefox) {
         borderLength = 1.65;
     }
-    var gridSize = height * width;
-    var squareSize = Math.sqrt(gridSize / squares) - borderLength;
+    let gridSize = height * width;
+    let squareSize = Math.sqrt(gridSize / squares) - borderLength;
 
-    for (var i = 0; i < squares; i++) {
+    for (let i = 0; i < squares; i++) {
         const gridSquare = document.createElement('div')
         gridSquare.classList.add('grid-squares');
         gridSquare.setAttribute('id', 'grid-squares');
@@ -135,11 +135,14 @@ function original() {
 
 function shaded() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    selected('shaded', bool);
+    if (selected('shaded', bool) == 1) {
+        gridDraw();
+        return 1;
+    }
     gridSquare.forEach(element => {
-        var shadedOne = 255;
-        var shadedTwo = 255;
-        var shadedThree = 255;
+        let shadedOne = 255;
+        let shadedTwo = 255;
+        let shadedThree = 255;
         element.addEventListener('mouseover', function (e) {
             if (shadedOne >= 0 && shadedTwo >= 0 && shadedThree >= 0) {
                 shadedOne = shadedOne - 25.5;
@@ -153,12 +156,15 @@ function shaded() {
 
 function random() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    selected('random', bool);
+    if (selected('random', bool) == 1) {
+        gridDraw();
+        return 1;
+    }
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
-            var one = Math.floor(Math.random() * (255));
-            var two = Math.ceil(Math.random() * 255);
-            var three = Math.floor(Math.random() * 255);
+            let one = Math.floor(Math.random() * (255));
+            let two = Math.ceil(Math.random() * 255);
+            let three = Math.floor(Math.random() * 255);
             e.target.style.backgroundColor = 'rgb(' + one + ',' + two + ',' + three + ')';
         });
     });
@@ -166,7 +172,10 @@ function random() {
 
 function erase() {
     const gridSquare = document.querySelectorAll('.grid-squares');
-    selected('eraser', bool);
+    if (selected('eraser', bool) == 1) {
+        gridDraw();
+        return 1;
+    }
     gridSquare.forEach(element => {
         element.addEventListener('mouseover', function (e) {
             e.target.style.backgroundColor = 'white';
@@ -187,10 +196,9 @@ function selected(id, bool) {
     if (!value.classList.contains('active')) {
         value.classList.add('active');
     }
-    else {
+    else if (value.classList.contains('active')) {
         if (bool === false) {
             value.classList.remove('active');
-            gridDraw();
             return 1;
         }
     }
@@ -201,6 +209,7 @@ function selected(id, bool) {
     });
 }
 
+// After 1.55s remove the modal
 function myTimer() {
     modalContent.classList.remove('after');
     modal.style.display = 'none';
